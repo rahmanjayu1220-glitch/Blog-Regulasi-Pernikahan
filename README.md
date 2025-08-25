@@ -1,6 +1,4 @@
-# blog-kua
 Blog resmi KUA Bandar Pasir Mandoge untuk publikasi regulasi dan peraturan terkait pernikahan.
-<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
