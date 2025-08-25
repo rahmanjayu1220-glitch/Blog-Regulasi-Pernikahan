@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KUA Bandar Pasir Mandoge — Arsip Regulasi Pernikahan</title>
+  <meta name="description" content="Arsip regulasi pernikahan KUA Bandar Pasir Mandoge: undang-undang, peraturan pemerintah, peraturan menteri, surat edaran, dan dokumen terkait." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center gap-4">
+      <div class="shrink-0 h-10 w-10 rounded-2xl bg-emerald-600/10 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6 text-emerald-700">
+          <path d="M12 2a1 1 0 0 1 .894.553l2.382 4.764 5.259.764a1 1 0 0 1 .554 1.705l-3.805 3.707.898 5.234a1 1 0 0 1-1.452 1.054L12 17.77l-4.279 2.246a1 1 0 0 1-1.452-1.054l.898-5.234L3.362 9.786a1 1 0 0 1 .554-1.705l5.259-.764L11.106 2.553A1 1 0 0 1 12 2z"/>
+        </svg>
+      </div>
+      <div class="flex-1">
+        <h1 class="text-xl sm:text-2xl font-semibold leading-tight">KUA Bandar Pasir Mandoge</h1>
+        <p class="text-sm text-slate-600">Arsip Regulasi Pernikahan • Unduh berkas PDF resmi</p>
+      </div>
+      <a href="#unggah" class="hidden sm:inline-flex items-center gap-2 px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-sm">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M12 5v14M5 12h14"/></svg>
+        Panduan Isi Data
+      </a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto px-4 py-6">
+    <!-- Controls -->
+    <section class="mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+        <div class="md:col-span-6">
+          <label class="block text-xs font-medium text-slate-600 mb-1" for="search">Pencarian</label>
+          <input id="search" type="search" placeholder="Cari judul/nomor/kata kunci…" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500" />
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-xs font-medium text-slate-600 mb-1" for="category">Kategori</label>
+          <select id="category" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500">
+            <option value="">Semua Kategori</option>
+          </select>
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-xs font-medium text-slate-600 mb-1" for="year">Tahun</label>
+          <select id="year" class="w-full px-3 py-2.5 rounded-xl border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500">
+            <option value="">Semua Tahun</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex items-center justify-between mt-3 text-sm text-slate-600">
+        <div id="count" class=""></div>
+        <div class="flex items-center gap-2">
+          <button id="clearFilters" class="px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100">Reset</button>
+          <button id="downloadIndex" class="px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100">Unduh Daftar (CSV)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- List -->
+    <section id="list" class="grid gap-3"></section>
+
+    <!-- Empty State -->
+    <template id="empty-template">
+      <div class="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
+        <p class="font-medium">Tidak ada regulasi yang cocok.</p>
+        <p class="text-sm text-slate-600">Coba ubah kata kunci atau filter kategori/tahun.</p>
+      </div>
+    </template>
+
+    <!-- Footer / Help -->
+    <section id="unggah" class="mt-12">
+      <div class="bg-white rounded-2xl border border-slate-200 p-5">
+        <h2 class="text-lg font-semibold mb-2">Panduan menambah regulasi</h2>
+        <ol class="list-decimal pl-5 space-y-1 text-sm text-slate-700">
+          <li>Buka berkas ini dan cari bagian <code>REGULATIONS</code> pada skrip di bawah.</li>
+          <li>Tambahkan objek baru dengan format: <code>{ title, number, year, category, pdfUrl, source?, tags? }</code>.</li>
+          <li>Simpan dan unggah ulang ke hosting (GitHub Pages/Netlify/dll.).</li>
+        </ol>
+        <p class="text-xs text-slate-500 mt-3">Catatan: <em>pdfUrl</em> bisa berupa tautan menuju PDF resmi di situs pemerintah (mis. peraturan.bpk.go.id, jdih.kemenag.go.id) atau berkas di penyimpanan Anda.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mt-10 border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-slate-600 flex flex-col sm:flex-row gap-2 sm:items-center justify-between">
+      <div>© <span id="yearNow"></span> KUA Bandar Pasir Mandoge • Arsip Regulasi Pernikahan</div>
+      <div class="flex items-center gap-3">
+        <a class="hover:underline" href="#">Kebijakan</a>
+        <span aria-hidden="true">•</span>
+        <a class="hover:underline" href="#unggah">Panduan</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Templates -->
+  <template id="item-template">
+    <article class="bg-white rounded-2xl border border-slate-200 p-4 sm:p-5 flex flex-col sm:flex-row gap-4">
+      <div class="flex-1 min-w-0">
+        <h3 class="font-semibold leading-snug text-slate-900 truncate" data-title></h3>
+        <p class="text-sm text-slate-700 mt-0.5" data-meta></p>
+        <div class="mt-2 flex flex-wrap gap-1.5 text-xs" data-tags></div>
+      </div>
+      <div class="flex items-start gap-2 shrink-0">
+        <a class="px-3 py-2 rounded-xl border border-slate-300 hover:bg-slate-100 text-sm inline-flex items-center gap-2" data-view target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M14 3h7v7"/><path d="M10 14 21 3"/><path d="M21 21H3V3"/></svg>
+          Buka PDF
+        </a>
+        <a class="px-3 py-2 rounded-xl bg-emerald-600 text-white hover:bg-emerald-700 text-sm inline-flex items-center gap-2" data-download download>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-4 w-4"><path d="M12 3v12"/><path d="m7 12 5 5 5-5"/><path d="M19 21H5"/></svg>
+          Unduh
+        </a>
+      </div>
+    </article>
+  </template>
+
+  <script>
+    // ====== DATA: Sunting bagian ini untuk menambah/mengubah regulasi ======
+    /**
+     * Struktur data:
+     * {
+     *   title: 'Judul lengkap regulasi',
+     *   number: 'Nomor/Seri',
+     *   year: 2024,
+     *   category: 'Undang-Undang' | 'PP' | 'PMA' | 'KMA' | 'SE' | 'Inpres' | 'Perdirjen' | ...,
+     *   pdfUrl: 'https://.../dokumen.pdf',
+     *   source?: 'Sumber resmi',
+     *   tags?: ['nikah', 'dispensasi', ...]
+     * }
+     */
+    const REGULATIONS = [
+      {
+        title: 'Undang-Undang Perkawinan',
+        number: 'UU No. 1 Tahun 1974',
+        year: 1974,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1VqcgMGGziuIg4qBLIE2Na4RBD3FFz3O6/view?usp=sharing',
+        source: '—',
+        tags: ['definisi nikah', 'syarat perkawinan']
+      },
+      {
+        title: 'Perubahan atas UU Perkawinan',
+        number: 'UU No. 16 Tahun 2019',
+        year: 2019,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1E5CRwijs_zV6DDKqXXjHQy14mC99M3pw/view?usp=sharing',
+        source: '—',
+        tags: ['batas usia kawin']
+      },
+      {
+        title: 'Pencatatan Nikah, Talak, dan Rujuk',
+        number: 'UU No. 22 Tahun 1946',
+        year: 1946,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1uTenS8CXx9N-mv8C_D6bNIfUOnV-x6yL/view?usp=sharing',
+        source: '—',
+        tags: ['Pernikahan', 'Jawa dan Madura']
+      },
+      {
+        title: 'Perubahan atas UU Pencatatan Nikah',
+        number: 'UU No. 32 Tahun 1954',
+        year: 1954,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1CNrVD5nigx1gzupNWId6QD_FpoTr_Mkd/view?usp=sharing',
+        source: '—',
+        tags: ['Pernikahan', 'Indonesia']
+      },
+      {
+        title: 'Peradilan Agama',
+        number: 'UU No. 3 Tahun 2006',
+        year: 2006,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1N6dxagLDe3PmQS-9ZmKFlYjNeup8NcNn/view?usp=sharing',
+        source: '—',
+        tags: ['Peradilan', 'Ekonomi, Syariah']
+      },
+      {
+        title: 'Perubahan atas UU Peradilan Agama',
+        number: 'UU No. 50 Tahun 2009',
+        year: 2009,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1EXvnoaZQ7vsJQmUfa0wMAvksitCtSI6A/view?usp=sharing',
+        source: '—',
+        tags: ['Peradilan', 'Teknis kelembagaan']
+      },
+      {
+        title: 'Administrasi Kependudukan',
+        number: 'UU No. 23 Tahun 2006',
+        year: 2006,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/1EXvnoaZQ7vsJQmUfa0wMAvksitCtSI6A/view?usp=sharing',
+        source: '—',
+        tags: ['Administrasi', 'Sistem Dasar']
+      },
+       {
+        title: 'Perubahan atas UU Administrasi Kependudukan',
+        number: 'UU No. 24 Tahun 2013',
+        year: 2013,
+        category: 'Undang-Undang',
+        pdfUrl: 'https://drive.google.com/file/d/19iMmrfCuYFrdahojHvjnyxd_LChP92NU/view?usp=sharing',
+        source: '—',
+        tags: ['Administrasi', 'Sistem Terintegrasi']
+      },
+      {
+        title: 'Penetapan Blangko DPN',
+        number: 'KMA No. 75 Tahun 2014',
+        year: 2014,
+        category: 'KMA',
+        pdfUrl: 'https://drive.google.com/file/d/1d9mngGthZfnHv4GEzOrgyTPn-_5aHSSh/view?usp=sharing',
+        source: '—',
+        tags: ['Blangko', 'Akta', 'Buku']
+      },
+      {
+        title: 'Tata Kerja KUA',
+        number: 'PMA No. 24 Tahun 2024',
+        year: 2024,
+        category: 'PMA',
+        pdfUrl: 'https://drive.google.com/file/d/1G5KiNIJU9a1pXs87W5oNWJtv0jvKA_wy/view?usp=sharing',
+        source: '—',
+        tags: ['Teknis Kelembagaan KUA']
+      },
+      {
+        title: 'PNBP Biaya di luar KUA',
+        number: 'PMA No. 21 Tahun 2024',
+        year: 2024,
+        category: 'PMA',
+        pdfUrl: 'https://drive.google.com/file/d/1rxCzzbSRN1tWRZ4X3XpH6AohW3c4sZ6L/view?usp=sharing',
+        source: '—',
+        tags: ['PNBP', 'Nikah dan Rujuk']
+      },
+      {
+        title: 'Prosedur PNBP Nol Rupiah di luar KUA',
+        number: 'PMA No. 14 Tahun 2024',
+        year: 2024,
+        category: 'PMA',
+        pdfUrl: 'https://drive.google.com/file/d/10o5sSlRxRXtqA0hdrYPMhFhRx5WTFuPQ/view?usp=sharing',
+        source: '—',
+        tags: ['Tata Cara', 'Persyaratan']
+      },
+      {
+        title: 'Pencatatan Pernikahan',
+        number: 'PMA No. 20 Tahun 2019',
+        year: 2019,
+        category: 'PMA',
+        pdfUrl: 'https://drive.google.com/file/d/1adPkf9IAuAH4d3DaalfM7NXeX71PyzHN/view?usp=sharing',
+        source: '—',
+        tags: ['KUA Kecamatan', 'Pernikahan']
+      },
+      {
+        title: 'Pencatatan Pernikahan',
+        number: 'PMA No. 30 Tahun 2024',
+        year: 2024,
+        category: 'PMA',
+        pdfUrl: 'https://drive.google.com/file/d/1v9HHMhvVTJpU0XmK8Ey-oG3_CpzHvnhh/view?usp=sharing',
+        source: '—',
+        tags: ['Pengadilan', 'Pernikahan']
+      },
+      {
+        title: 'Pelaksanaan UU Perkawinan',
+        number: 'PP No. 9 Tahun 1975',
+        year: 1975,
+        category: 'PP',
+        pdfUrl: 'https://drive.google.com/file/d/1e7DM0i1OOqTGQM3lIaDf-6mIlfPeshab/view?usp=sharing',
+        source: '—',
+        tags: ['Perkawinan']
+      },
+      {
+        title: 'Pengurusan Izin Bagi PNS',
+        number: 'PP No. 48 Tahun 2014',
+        year: 2014,
+        category: 'PP',
+        pdfUrl: 'https://drive.google.com/file/d/1K1qswM7Zbssxw_3tqFZA-Qg_jvhPd6vs/view?usp=sharing',
+        source: '—',
+        tags: ['PNS', 'Izin Nikah']
+      },
+       {
+        title: 'Perubahan atas PP Pengurusan Izin Bagi PNS',
+        number: 'PP No. 19 Tahun 2015',
+        year: 2015,
+        category: 'PP',
+        pdfUrl: 'https://drive.google.com/file/d/1K1qswM7Zbssxw_3tqFZA-Qg_jvhPd6vs/view?usp=sharing',
+        source: '—',
+        tags: ['PNS', 'Izin Nikah']
+      },
+      {
+        title: 'Pelaksanaan UU Administrasi Kependudukan',
+        number: 'PP No. 40 Tahun 2019',
+        year: 2019,
+        category: 'PP',
+        pdfUrl: 'https://drive.google.com/file/d/1uPNg1yGmrVVxA-EVKkX1ZVVJe89Ua9x9/view?usp=sharing',
+        source: '—',
+        tags: ['PNS', 'Izin Nikah']
+      },
+      {
+        title: 'Pengangkatan dan Pembinaan PPPN',
+        number: 'Kepdirjen Bimas Islam No. 412 Tahun 2022',
+        year: 2022,
+        category: 'KEPDIRJEN',
+        pdfUrl: 'https://drive.google.com/file/d/1mta0l01db-dcwyawCU0X5gcoF08fnHXx/view?usp=sharing',
+        source: '—',
+        tags: ['Pembantu Pegawai Pencatat Nikah']
+      },
+       {
+        title: 'Petunjuk Teknis PNBP',
+        number: 'Kepdirjen Bimas Islam No. 600 Tahun 2016',
+        year: 2016,
+        category: 'KEPDIRJEN',
+        pdfUrl: 'https://drive.google.com/file/d/17wTU-H_KxUMdw4NTsgC7xJBHcvENgKd0/view?usp=sharing',
+        source: '—',
+        tags: ['Juknis', 'PNBP']
+      },
+       {
+        title: 'Petunjuk Teknis Pencatatan Nikah',
+        number: 'Kepdirjen Bimas Islam No. 473 Tahun 2020',
+        year: 2020,
+        category: 'KEPDIRJEN',
+        pdfUrl: 'https://drive.google.com/file/d/1WyjwOeFI_na3ugqNQI_1XwRO35HPEqcd/view?usp=sharing',
+        source: '—',
+        tags: ['Juknis', 'Pencatatan Pernikahan']
+      },
+      {
+        title: 'Pencabutan Ketentuan Pelayanan di Hari Libur',
+        number: 'SE No. 5745 Tahun 2021',
+        year: 2022,
+        category: 'SE',
+        pdfUrl: 'https://drive.google.com/file/d/1JdhlHnBFGsAvkcY43wzYLjr2keWf2DOy/view?usp=sharing',
+        source: '—',
+        tags: ['Pelayanan, Pernikahan']
+      },
+      {
+        title: 'Pernikahan Dalam Masa Iddah Isteri',
+        number: 'SE No. P-005/DJ-III/HK.00.7/10 Tahun 2021',
+        year: 2021,
+        category: 'SE',
+        pdfUrl: 'https://drive.google.com/file/d/1yYS8irYyQq6vSxkEndTOL2PD0wm-WaF5/view?usp=sharing',
+        source: '—',
+        tags: ['Masa Iddah, Pernikahan']
+      },
+      {
+        title: 'Bimbingan Pernikahan',
+        number: 'SE No. 2 Tahun 2024',
+        year: 2024,
+        category: 'SE',
+        pdfUrl: 'https://drive.google.com/file/d/13oy31R-3CbOYlFj5cy94zv8cgc2sHjau/view?usp=sharing',
+        source: '—',
+        tags: ['Bimwin']
+      }
+    ];
+
+    // ====== UTIL ======
+    const $ = (sel, el = document) => el.querySelector(sel);
+    const $$ = (sel, el = document) => Array.from(el.querySelectorAll(sel));
+
+    function unique(arr) { return Array.from(new Set(arr)); }
+    function downloadCSV(filename, rows) {
+      const replacer = (key, value) => (value === null ? '' : value);
+      const header = Object.keys(rows[0]);
+      const csv = [header.join(',')].concat(
+        rows.map(row => header.map(field => {
+          const val = row[field] ?? '';
+          const safe = String(val).replaceAll('"', '""');
+          return /[",\n]/.test(safe) ? `"${safe}"` : safe;
+        }).join(','))
+      ).join('\n');
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = filename;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    // ====== STATE ======
+    const state = {
+      search: '',
+      category: '',
+      year: '',
+      data: [...REGULATIONS]
+    };
+
+    // ====== RENDER FILTERS ======
+    function initFilters() {
+      const categories = unique(REGULATIONS.map(r => r.category).filter(Boolean)).sort();
+      const years = unique(REGULATIONS.map(r => r.year).filter(Boolean)).sort((a,b)=>b-a);
+
+      const catSel = $('#category');
+      const yearSel = $('#year');
+
+      categories.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c; catSel.appendChild(opt);
+      });
+      years.forEach(y => {
+        const opt = document.createElement('option');
+        opt.value = y; opt.textContent = y; yearSel.appendChild(opt);
+      });
+    }
+
+    // ====== FILTERING ======
+    function applyFilters() {
+      const q = state.search.trim().toLowerCase();
+      let rows = [...state.data];
+
+      if (q) {
+        rows = rows.filter(r =>
+          [r.title, r.number, r.category, (r.tags||[]).join(' ')].join(' ').toLowerCase().includes(q)
+        );
+      }
+      if (state.category) {
+        rows = rows.filter(r => r.category === state.category);
+      }
+      if (state.year) {
+        rows = rows.filter(r => String(r.year) === String(state.year));
+      }
+
+      renderList(rows);
+      $('#count').textContent = `${rows.length} dokumen ditampilkan`;
+    }
+
+    // ====== RENDER LIST ======
+    function renderList(rows) {
+      const list = $('#list');
+      list.innerHTML = '';
+      if (!rows.length) {
+        const tpl = $('#empty-template').content.cloneNode(true);
+        list.appendChild(tpl);
+        return;
+      }
+
+      // Urutkan: terbaru ke lama, lalu kategori, lalu judul
+      rows.sort((a,b) => (b.year - a.year) || a.category.localeCompare(b.category) || a.title.localeCompare(b.title));
+
+      rows.forEach(r => {
+        const tpl = $('#item-template').content.cloneNode(true);
+        $('[data-title]', tpl).textContent = r.title;
+        const meta = [];
+        if (r.number) meta.push(r.number);
+        if (r.year) meta.push(r.year);
+        if (r.category) meta.push(r.category);
+        $('[data-meta]', tpl).textContent = meta.join(' • ');
+        $('[data-view]', tpl).href = r.pdfUrl;
+        const dl = $('[data-download]', tpl);
+        dl.href = r.pdfUrl;
+        dl.download = (r.number ? r.number.replaceAll(' ', '_') + '_' : '') + (r.title || 'dokumen').replaceAll(' ', '_') + '.pdf';
+
+        const tagsWrap = $('[data-tags]', tpl);
+        (r.tags || []).forEach(t => {
+          const span = document.createElement('span');
+          span.className = 'px-2 py-1 rounded-lg bg-slate-100 border border-slate-200';
+          span.textContent = `#${t}`;
+          tagsWrap.appendChild(span);
+        });
+
+        list.appendChild(tpl);
+      });
+    }
+
+    // ====== EVENTS ======
+    function attachEvents() {
+      $('#search').addEventListener('input', (e) => { state.search = e.target.value; applyFilters(); });
+      $('#category').addEventListener('change', (e) => { state.category = e.target.value; applyFilters(); });
+      $('#year').addEventListener('change', (e) => { state.year = e.target.value; applyFilters(); });
+      $('#clearFilters').addEventListener('click', () => {
+        state.search = ''; state.category = ''; state.year = '';
+        $('#search').value = ''; $('#category').value = ''; $('#year').value = '';
+        applyFilters();
+      });
+      $('#downloadIndex').addEventListener('click', () => {
+        if (!state.data.length) return;
+        const rows = state.data.map(({title, number, year, category, pdfUrl, source}) => ({title, number, year, category, pdfUrl, source}));
+        downloadCSV('daftar-regulasi.csv', rows);
+      });
+    }
+
+    // ====== INIT ======
+    document.addEventListener('DOMContentLoaded', () => {
+      initFilters();
+      attachEvents();
+      applyFilters();
+      document.getElementById('yearNow').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
