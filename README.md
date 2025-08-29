@@ -268,27 +268,18 @@ Blog resmi KUA Bandar Pasir Mandoge untuk publikasi regulasi dan peraturan terka
         number: 'PP No. 9 Tahun 1975',
         year: 1975,
         category: 'PP',
-        pdfUrl: 'https://drive.google.com/file/d/1e7DM0i1OOqTGQM3lIaDf-6mIlfPeshab/view?usp=sharing',
+        pdfUrl: 'https://drive.google.com/file/d/1SZA-uEa0IwkhJuJw6PseM6VUZfQAaKch/view?usp=sharing',
         source: '—',
         tags: ['Perkawinan']
       },
       {
-        title: 'Pengurusan Izin Bagi PNS',
-        number: 'PP No. 48 Tahun 2014',
-        year: 2014,
-        category: 'PP',
-        pdfUrl: 'https://drive.google.com/file/d/1K1qswM7Zbssxw_3tqFZA-Qg_jvhPd6vs/view?usp=sharing',
-        source: '—',
-        tags: ['PNS', 'Izin Nikah']
-      },
-       {
-        title: 'Perubahan atas PP Pengurusan Izin Bagi PNS',
+        title: 'Jenis dan Tarif atas PNBP Kemenag',
         number: 'PP No. 19 Tahun 2015',
         year: 2015,
         category: 'PP',
-        pdfUrl: 'https://drive.google.com/file/d/1K1qswM7Zbssxw_3tqFZA-Qg_jvhPd6vs/view?usp=sharing',
+        pdfUrl: 'https://drive.google.com/file/d/1SZA-uEa0IwkhJuJw6PseM6VUZfQAaKch/view?usp=sharing',
         source: '—',
-        tags: ['PNS', 'Izin Nikah']
+        tags: ['PNBP']
       },
       {
         title: 'Pelaksanaan UU Administrasi Kependudukan',
